@@ -1,0 +1,31 @@
+# Device
+device: cuda
+precision: fp16
+
+# Dataset
+category: screw
+categories: [screw, metal_nut, bottle]
+paths:
+  raw: data/raw
+  processed: data/processed
+  splits: data/splits
+  mistakes: data/raw/mistakes
+
+# Model
+model:
+  name: patchcore
+  backbone: resnet50
+
+# Threshold
+threshold:
+  percentile: 95
+
+# Feedback loop
+retrain_threshold: 20
+min_auroc: 0.85
+
+# Dataloader
+dataloader:
+  batch_size: 1
+  num_workers: 4
+  img_size: 224
