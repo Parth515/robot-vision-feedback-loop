@@ -2,7 +2,6 @@ import torch
 import torch.nn.functional as F
 from torchvision import models, transforms
 from pathlib import Path
-import numpy as np
 from src.gpu.gpu_utils import get_device
 
 class PatchCore:
