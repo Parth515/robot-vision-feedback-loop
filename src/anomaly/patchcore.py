@@ -2,6 +2,7 @@ import torch
 import torch.nn.functional as F
 from torchvision import models, transforms
 from pathlib import Path
+from PIL import Image
 from src.gpu.gpu_utils import get_device
 
 class PatchCore:
@@ -12,7 +13,6 @@ class PatchCore:
 
         # pretrained backbone, remove final layers
         resnet = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
-        # use layer2 + layer3 outputs as patch features
         self.feature_extractor = torch.nn.Sequential(*list(resnet.children())[:-3])
         self.feature_extractor.eval().to(self.device)
 
@@ -36,7 +36,7 @@ class PatchCore:
         paths = list(Path(good_image_dir).glob("*.png"))
         print(f"Building memory bank from {len(paths)} normal images...")
 
-        from PIL import Image
+        
         for p in paths:
             img = self.transform(Image.open(p).convert("RGB")).unsqueeze(0)
             feats = self.extract_features(img)
