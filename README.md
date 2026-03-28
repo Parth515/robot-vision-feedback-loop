@@ -21,6 +21,38 @@ Train on normal images → build memory bank → score new samples → flag anom
 
 ---
 
+### Dataset
+
+Built for MVTec AD
+
+## Official Download
+
+The dataset should be downloaded from the official MVTec AD download page.
+Official source:
+```text
+https://www.mvtec.com/company/research/datasets/mvtec-ad/downloads
+```
+## Download Script
+
+Use the provided script:
+
+```bash
+chmod +x scripts/download_mvtec.sh
+./scripts/download_mvtec.sh /path/to/mvtec_anomaly_detection.tar.xz
+```
+
+If your official download is a ZIP archive, the same script also supports that format:
+
+```bash
+./scripts/download_mvtec.sh /path/to/mvtec_ad.zip
+```
+The script extracts only the selected categories into `data/raw/`:
+- `screw`
+- `metal_nut`
+- `bottle`
+
+This keeps the project lightweight and avoids copying the full dataset into the working directory when you only need a few categories.
+
 ## Quick Start
 
 ### Train
@@ -38,19 +70,13 @@ Train on normal images → build memory bank → score new samples → flag anom
 ./scripts/full_pipeline.sh screw
 ```
 
-### Dataset
-
-Built for MVTec AD
-
-Recommended categories:  
-screw  
-metal_nut  
-bottle  
-
 ### Evaluation
 AUROC  
 F1 Score  
 
+Evaluation uses:
+- `test/good/` as normal samples
+- defect folders under `test/` as anomalous samples
 
 ### Project Structure
 ```bash
