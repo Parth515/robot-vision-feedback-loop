@@ -1,4 +1,4 @@
-# Robot Vision Feedback Loop — Industrial Anomaly Detection
+# Robot Vision Feedback Loop - Industrial Anomaly Detection
 
 Unsupervised anomaly detection system for industrial inspection using **PatchCore + ResNet50**.
 
@@ -17,7 +17,7 @@ Learns **normal patterns only** and detects defects as deviations, making it sui
 ---
 
 ## How It Works
-Train on normal images → build memory bank → score new samples → flag anomalies → collect edge cases → retrain.
+Train on normal images -> build memory bank -> score new samples -> flag anomalies -> collect edge cases -> retrain.
 
 ---
 
