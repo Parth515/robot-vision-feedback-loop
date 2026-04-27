@@ -1,7 +1,7 @@
 ---
 title: Robot Vision Anomaly Demo
 emoji: 🤖
-colorFrom: teal
+colorFrom: green
 colorTo: gray
 sdk: docker
 app_port: 7860
