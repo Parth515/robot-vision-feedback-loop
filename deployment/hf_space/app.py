@@ -10,6 +10,7 @@ from huggingface_hub import hf_hub_download
 
 from src.anomaly.patchcore import PatchCore
 
+HF_TOKEN = os.getenv("HF_TOKEN")
 HF_MODEL_REPO = os.getenv("HF_MODEL_REPO", "parth515/robot-vision-anomaly-model")
 HF_CHECKPOINT_FILENAME = os.getenv("HF_CHECKPOINT_FILENAME", "screw_patchcore.pt")
 
@@ -18,6 +19,7 @@ checkpoint_path = hf_hub_download(
     repo_id=HF_MODEL_REPO,
     filename=HF_CHECKPOINT_FILENAME,
     repo_type="model",
+    token=HF_TOKEN,
 )
 model.load(checkpoint_path)
 
@@ -51,7 +53,7 @@ demo = gr.Interface(
     ],
     title="Robot Vision Anomaly Detection",
     description="PatchCore-based industrial anomaly detection demo deployed with Docker on Hugging Face Spaces.",
-    allow_flagging="never",
+    flagging_mode="never", 
 )
 
 if __name__ == "__main__":
