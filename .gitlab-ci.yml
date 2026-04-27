@@ -1,0 +1,57 @@
+stages:
+  - lint
+  - test
+  - package
+  - deploy
+
+image: python:3.12
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  PYTHONUNBUFFERED: "1"
+  HF_CHECKPOINT_FILENAME: "screw_patchcore.pt"
+
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - python -V
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+  - pip install pytest ruff huggingface_hub
+
+lint:
+  stage: lint
+  script:
+    - ruff check src deployment tests
+
+test:
+  stage: test
+  script:
+    - pytest tests
+
+package:
+  stage: package
+  script:
+    - mkdir -p dist/model
+    - cp models/checkpoints/${HF_CHECKPOINT_FILENAME} dist/model/
+    - cp config/config.yaml dist/model/config.yaml
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist/model
+
+deploy_model:
+  stage: deploy
+  script:
+    - python deployment/upload_model.py
+  only:
+    - main
+
+deploy_space:
+  stage: deploy
+  script:
+    - python deployment/upload_space.py
+  only:
+    - main
