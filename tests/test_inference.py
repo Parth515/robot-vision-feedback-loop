@@ -1,6 +1,5 @@
 import torch
-from unittest.mock import MagicMock, patch
-from pathlib import Path
+from unittest.mock import MagicMock
 from PIL import Image
 
 def make_mock_patchcore(score=0.8, threshold=0.5):
