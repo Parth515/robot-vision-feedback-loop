@@ -5,6 +5,7 @@
 *.pyo
 *.pyd
 *.so
+*.pyc
 
 # Virtual environments
 
