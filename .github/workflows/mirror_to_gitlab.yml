@@ -1,0 +1,20 @@
+name: Mirror to GitLab
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # full history, not shallow clone
+
+      - name: Push to GitLab
+        run: |
+          git remote add gitlab https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@${{ secrets.GITLAB_REPO_URL }}
+          git push gitlab main --force
