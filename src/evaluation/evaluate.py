@@ -2,7 +2,6 @@ from sklearn.metrics import roc_auc_score, f1_score
 from src.anomaly.patchcore import PatchCore
 from pathlib import Path
 from PIL import Image
-import numpy as np
 
 def evaluate(category, weights_path):
     model = PatchCore()
@@ -19,7 +18,8 @@ def evaluate(category, weights_path):
     # defective test images → label 1 (all defect subdirs)
     test_dir = Path(f"data/raw/{category}/test")
     for defect_dir in test_dir.iterdir():
-        if defect_dir.name == "good": continue
+        if defect_dir.name == "good": 
+            continue
         for p in defect_dir.glob("*.png"):
             img = model.transform(Image.open(p).convert("RGB")).unsqueeze(0)
             scores.append(model.score(img))

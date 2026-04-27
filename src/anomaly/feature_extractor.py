@@ -1,5 +1,5 @@
 import torch
-from torchvision import models, transforms
+from torchvision import models
 
 class FeatureExtractor:
     def __init__(self, backbone="resnet50", device=None):

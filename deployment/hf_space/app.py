@@ -3,7 +3,6 @@ import sys
 
 sys.path.insert(0, "/app") 
 
-from pathlib import Path
 
 import gradio as gr
 from PIL import Image

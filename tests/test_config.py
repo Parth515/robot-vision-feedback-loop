@@ -1,5 +1,3 @@
-import pytest
-from pathlib import Path
 from src.utils.config_loader import load_config
 
 def test_configs_loads():

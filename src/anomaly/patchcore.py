@@ -1,5 +1,4 @@
 import torch
-import torch.nn.functional as F
 from torchvision import models, transforms
 from pathlib import Path
 from PIL import Image
