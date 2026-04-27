@@ -57,6 +57,7 @@ test:
 
 docker_build:
   stage: docker
+  when: manual
   image: docker:24
   services:
     - docker:24-dind
