@@ -86,6 +86,7 @@ deploy_model:
 
 deploy_space:
   stage: deploy
+  when: manual
   script:
     - python deployment/upload_space.py
   only:
