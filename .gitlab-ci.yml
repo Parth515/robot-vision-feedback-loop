@@ -33,8 +33,10 @@ lint:
 
 test:
   stage: test
+  variables:
+    PYTHONPATH: "$CI_PROJECT_DIR"
   script:
-    - pytest tests
+    - pytest tests -v
 
 # PACKAGE
 
