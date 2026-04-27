@@ -1,12 +1,13 @@
 import os
 import sys
+
+sys.path.insert(0, "/app") 
+
 from pathlib import Path
 
 import gradio as gr
 from PIL import Image
 from huggingface_hub import hf_hub_download
-
-sys.path.append("/app")
 
 from src.anomaly.patchcore import PatchCore
 
