@@ -13,12 +13,16 @@ api.create_repo(repo_id=HF_SPACE_REPO, repo_type="space", space_sdk="docker", ex
 with tempfile.TemporaryDirectory() as tmpdir:
     tmp = Path(tmpdir)
 
-    # Copy Docker Space app files
-    shutil.copytree("deployment/hf_space", tmp, dirs_exist_ok=True)
+    # app files from hf_space/
+    shutil.copy("deployment/hf_space/app.py", tmp / "app.py")
+    shutil.copy("deployment/hf_space/requirements.txt", tmp / "requirements.txt")
+    shutil.copy("deployment/hf_space/README.md", tmp / "README.md")
+    shutil.copy("deployment/hf_space/Dockerfile", tmp / "Dockerfile")
 
-    # Copy project modules required by the app
+    # src and config from project root
     shutil.copytree("src", tmp / "src", dirs_exist_ok=True)
-    shutil.copytree("config", tmp / "config", dirs_exist_ok=True)
+    (tmp / "config").mkdir(exist_ok=True)
+    shutil.copy("config/config.yaml", tmp / "config" / "config.yaml")
 
     api.upload_folder(
         folder_path=str(tmp),
