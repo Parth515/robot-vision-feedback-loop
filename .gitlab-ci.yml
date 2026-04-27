@@ -1,7 +1,7 @@
 stages:
   - lint
   - test
-  - package
+  # - package
   - docker
   - deploy
 
@@ -10,7 +10,7 @@ image: python:3.12
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   PYTHONUNBUFFERED: "1"
-  HF_CHECKPOINT_FILENAME: "screw_patchcore.pt"
+  # HF_CHECKPOINT_FILENAME: "screw_patchcore.pt"
 
 cache:
   paths:
@@ -26,6 +26,7 @@ before_script:
 
 lint:
   stage: lint
+  when: manual
   script:
     - ruff check src deployment tests
 
@@ -33,6 +34,7 @@ lint:
 
 test:
   stage: test
+  when: manual
   variables:
     PYTHONPATH: "$CI_PROJECT_DIR"
   script:
@@ -40,16 +42,16 @@ test:
 
 # PACKAGE
 
-package:
-  stage: package
-  script:
-    - mkdir -p dist/model
-    - cp models/checkpoints/${HF_CHECKPOINT_FILENAME} dist/model/
-    - cp config/config.yaml dist/model/config.yaml
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - dist/model
+# package:
+#   stage: package
+#   script:
+#     - mkdir -p dist/model
+#     - cp models/checkpoints/${HF_CHECKPOINT_FILENAME} dist/model/
+#     - cp config/config.yaml dist/model/config.yaml
+#   artifacts:
+#     expire_in: 1 week
+#     paths:
+#       - dist/model
 
 # DOCKER BUILD TEST
 
@@ -71,12 +73,12 @@ docker_build:
 
 # DEPLOY
 
-deploy_model:
-  stage: deploy
-  script:
-    - python deployment/upload_model.py
-  only:
-    - main
+# deploy_model:
+#   stage: deploy
+#   script:
+#     - python deployment/upload_model.py
+#   only:
+#     - main
 
 deploy_space:
   stage: deploy
