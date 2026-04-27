@@ -12,6 +12,6 @@ def compute_threshold(model, good_test_dir, percentile=95):
         img = model.transform(Image.open(p).convert("RGB")).unsqueeze(0)
         scores.append(model.score(img))
 
-    threshold = torch.tensor(scores).quantile(percentile / 100).item()
+    threshold = torch.tensor(scores, dtype=torch.float32).quantile(percentile / 100).item()
     print(f"Scores on good images: min={min(scores):.3f}, max={max(scores):.3f}")
     return threshold
