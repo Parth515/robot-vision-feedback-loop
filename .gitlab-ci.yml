@@ -69,7 +69,7 @@ docker_build:
     - docker build --no-cache
         -f deployment/hf_space/Dockerfile
         -t robot-vision-demo
-        .                              # ← project root as build context
+        .                              # project root as build context
     - docker run --rm robot-vision-demo find /app -type f | sort
   only:
     - main
